@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<title>McCombs Data Science</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript" src="../static/js/app.js"></script>
+<script type="text/javascript" src="../static/js/CanvasJS.js"></script>
+<style>
+    #map{ width: 900px; height: 500px; }
+</style>
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Lato", sans-serif;
+    }
+
+    body,
+    html {
+        height: 100%;
+        color: rgb(39, 31, 31);
+        line-height: 1.8;
+    }
+
+    /* Create a Parallax Effect */
+
+    .bgimg-1,
+    .bgimg-2,
+    .bgimg-3 {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    /* First image (Logo. Full height) */
+
+    .bgimg-1 {
+        background-image: url('https://www2.deloitte.com/content/dam/insights/us/articles/4930_MIT-SMR/images/4930_1440x660-banner.jpg/_jcr_content/renditions/cq5dam.web.1440.660.jpeg');
+        min-height: 100%;
+    }
+
+    /* Second image (Portfolio) */
+
+    .bgimg-2 {
+        background-image: url('https://i.imgur.com/gTSwBlb.jpg');
+        min-height: 400px;
+    }
+
+    /* Third image (Contact) */
+
+    .bgimg-3 {
+        background-image: url("https://download.hipwallpaper.com/desktop/1920/1080/68/30/Dnp6rS.jpg");
+        min-height: 400px;
+    }
+
+    /* Third image (Contact) */
+
+    .bgimg-4 {
+        background-image: url("http://blogs.sussex.ac.uk/tel/files/2018/09/group-1825510_1920.jpg");
+        min-height: 400px;
+    }
+    
+    .w3-wide {
+        letter-spacing: 5px;
+    }
+
+    .w3-hover-opacity {
+        cursor: pointer;
+    }
+
+    .boxhead a {
+        color: #FFFFFF;
+        text-decoration: none;
+    }
+
+    .boxhead-load a {
+        color: #FFFFFF;
+        text-decoration: none;
+    }
+
+    .load-center {
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Turn off parallax scrolling for tablets and phones */
+
+    @media only screen and (max-device-width: 1024px) {
+        .bgimg-1,
+        .bgimg-2,
+        .bgimg-3 {
+            background-attachment: scroll;
+        }
+    }
+</style>
+
+<body>
+
+
+    <!-- First Parallax Image with Logo Text -->
+    <div class="bgimg-1 w3-display-container " id="home">
+        <div class="w3-display-middle" style="white-space:nowrap;">
+            <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Measuring and Evaluating the Determinants and Influence of Advertising
+                
+        </div>
+    </div>
+
+    <!-- Container (League at a Glance) -->
+    
+    <div class="w3-content w3-container w3-padding-64" id="about">
+        <h3 class="w3-center">Introduction</h3>
+        <p>
+                <br> Childhood obesity affects millions of Americans. In recent decades, rates of childhood obesity  
+                have more than tripled, from 5% in 1970, to 19% in 2016. Children  who experience obesity are more likely to remain obese as adults, more than
+                doubling risk for chronic diseases such as diabetes and heart disease. For these reasons, 
+                childhood obesity poses a significant threat to public health.</p>
+                <style>
+                        * {
+                          box-sizing: border-box;
+                        }
+                        
+                        .box {
+                          float: left;
+                          width: 50%;
+                          padding: 15px;
+                          height: 300px;
+                        }
+                        
+                        .clearfix::after {
+                          content: "";
+                          clear: both;
+                          display: table;
+                        }
+                        </style>
+                        <div class="clearfix">
+                          <div class="box" style="background-color: white">
+                                <p>While a multitude of biological and lifestyle factors influence bodyweight status, evidence suggests that there is a link between exposure to unhealthy food advertising 
+                                        and childhood obesity. Previous research has found that most advertisements airing during children’s television programs are high in calories, fat, 
+                                        sugar, and sodium, and low in fiber, vitamins, and minerals. After being exposed to these ads, research shows that children are more likely to make unhealthy food 
+                                        selections. The chronicity of this negative feedback loop leads to poor diet and weight gain. 
+                                        
+                                        
+                          </div>
+                          <div class="box" style="background-color:white">
+                                <p><img src="https://cdn1.sph.harvard.edu/wp-content/uploads/sites/56/2012/10/tv_and_sedentary_pastimes1.jpg" alt="obesity" height="250" width="400"></p>
+                          </div>
+                          <br><br>
+                                        This line of research is informative for regulatory television programming decisions, but these are not the only types of ads children are exposed to. Stepping out into communities,
+                                        we are met with hundreds of ads every minute - from large colorful billboards and store fronts, to small monotone marquees. A large percentage of these ads are for foods and beverages (hereafter food).
+                                        To date, research is lacking that investigates the nutritional content of outdoor food advertising, or how exposure to it may be related to childhood obesity. Second only to home, children spend a great deal of their time at and around schools. Thus, these youth serving institutions are a primary mode through which children and adolescents are exposed to 
+                                        outdoor Food advertising.</p>
+                        </div>
+            
+            <br>
+            
+            <br>
+           
+
+            
+
+        
+    </div>
+
+
+
+    <!-- Second Parallax Image with ANALYTICS Text -->
+    <div class="bgimg-2 w3-display-container">
+        <div class="w3-display-middle">
+            <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Methods</span>
+        </div>
+    </div>
+
+
+
+    <!-- Container (Analytics Section) -->
+    <div class="w3-content w3-container w3-padding-64" id="Methods">
+
+        <p> The Outdoor MEDIA (Measuring and Evaluating the Determinants and Influence of Advertising) Study was designed to document and describe the prevalence of outdoor food advertising 
+            around schools, as well is investigate social disparities that may exist in their deployment. The present analysis evaluated food advertising and establishments within a half-mile of 12 
+            middle schools and 9 high schools in Austin, TX. Photographs were taken of all outdoor advertisements and ads displaying food and beverage items were coded for nutritional content 
+            (i.e. calories, fat, sugar, sodium) using the Nutrition Data System for Research (NDSR). School-level demographic information on economic disadvantage (i.e. % of students receiving 
+            free/reduced price lunch) was obtained from the Texas Education Agency. </p>
+        <p class="w3-center">
+        
+                <div id="map"></div>
+
+
+                <script type="text/javascript" src="../static/js/map.js"></script>
+                       
+                </p>
+                Because % of economically disadvantaged students (%EDS) was not normally distributed, spearman rank-order correlation coefficients were calculated comparing it to total ads, calories, fat, sugar, and sodium. Data were split by >60% EDS, and mean differences were tested for significance using t-tests where normality was shown, and Mann-Whitney U tests were normality was violated.
+                <br>
+                <br>
+                A machine learning random forrest framework was then utilized to build a model to predict if an ad was located closest to a high or low %EDS school based on macronutrient content.
+                
+                        </div>
+                <div class="w3-row w3-center w3-dark-grey w3-padding-16">
+                    <div class="w3-quarter w3-section">
+                        <span class="w3-xlarge">9</span>
+                        <br> High Schools
+                    </div>
+                    <div class="w3-quarter w3-section">
+                        <span class="w3-xlarge">12</span>
+                        <br> Middle Schools
+                    </div>
+                    <div class="w3-quarter w3-section">
+                        <span class="w3-xlarge">0.5 Mile</span>
+                        <br> Radius Around Each School
+                    </div>
+                    <div class="w3-quarter w3-section">
+                        <span class="w3-xlarge">2268</span>
+                        <br> Total Advertisements
+                    </div>
+                </div>
+            </div>
+
+        
+
+        
+        </div>
+
+
+
+
+
+<!-- Third Parallax Image with Portfolio Text -->
+<div class="bgimg-3 w3-display-container ">
+    <div class="w3-display-middle">
+        <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Results
+    </div>
+</div>
+
+    <!-- Container (Analytics Section) -->
+    <div class="w3-content w3-container w3-padding-64" id="portfolio">
+
+        <h2 class="w3-center"><b>Descriptive Statistics:</b></h2>
+        <h5 class="w3-center"><br><br>%EDS within the school ranged from 24.91 to 96.71 (M=67.7, SD=25.95). 
+            <br><br>Total ad count around each school ranged from 44 to 655 (M=201.2, SD=144.85). 
+            <br><br>Total calories depicted in ads around each school ranged from 1,093.86 to 182,554.29 (M=36,934.54, SD=41,986.98). 
+            <br><br>Total grams of fat depicted in ads around each school ranged from 27.58 to 4,038.96 (M=1,230.21, SD=1,131.34). 
+            <br><br>Total grams of sugar depicted in ads around each school ranged from 24.88 to 26,880.91 (M=4032.94, SD=5,952.47).  
+            <br><br>Total mg of sodium depicted in ads around each school ranged from 2,692.66 to 221,879.80 <br>(M=50,475.99, SD=53,549.63).</h5>  
+<br>
+<br>
+<hr>
+<br>
+<h2 class="w3-center"><b>Correlation Models:</b></h2>
+<br>
+<br>
+<br>
+<div id="chartContainer" style="height: 450px; width: 100%;"></div>
+<br>
+<h4 class="w3-center">Schools with a higher percent of economically disadvantage students had a higher percent of obese or overweight students. High advertisement density clusters around low-income and high obesity rate schools. %EDS is significantly correlated with % Overweight or Obese (rho=.86, p=.001), as well as total number of ads (rho=.66, p=.001).</h4>
+<br>
+<img src="kcal_rho.png" alt="ads" height="450" width="450">
+<img src="fat_rho.png" alt="ads" height="450" width="450">
+<br>
+<br>
+<img src="sugar_rho.png" alt="ads" height="450" width="450">
+<img src="sodium_rho.png" alt="ads" height="450" width="450">
+<br>
+<h4 class="w3-center">%EDS is significantly correlated with ad exposure to each unhealthy macronitrient: calories (rho=.48, p=.03), fat (rho=.49, p=.02), sugar (rho=.43, p=.049), and sodium (rho=.47, p=.03). </h4>
+<br>
+<br>
+<br>
+<hr>
+<br>
+<h2 class="w3-center"><b>Means Comparison Models:</b></h2>
+<br>
+<br>
+<div id="chartContainer2" style="height: 450px; width: 100%;"></div>
+<br>
+<h4 class="w3-center">Significant differences were detected comparing <br>schools less than 60%EDS to greater than 60%EDS in total ads (U=6, p=.001)... </h4>
+<br>
+<div id="chartContainer3" style="height: 450px; width: 100%;"></div>
+<br>
+<h4 class="w3-center">calories (U=22, p=.02)... </h4>
+<br>
+<div id="chartContainer4" style="height: 450px; width: 100%;"></div>
+<br>
+<h4 class="w3-center">fat (t=-2.45, p=.02)... </h4>
+<br>
+<div id="chartContainer5" style="height: 450px; width: 100%;"></div>
+<br>
+<h4 class="w3-center">sugar (U=28, p=.04)... </h4>
+<br>
+<div id="chartContainer6" style="height: 450px; width: 100%;"></div>
+<br>
+<h4 class="w3-center">and sodium (t=-2.44, p=.02). </h4>
+<br>
+<script type="text/javascript" src="../static/js/charts.js"></script>
+    
+
+    <br>
+<br>
+<br>
+<hr>
+<br>
+<h2 class="w3-center"><b>Random Forrest Model:</b></h2>
+<br>
+<br>
+<img src = "https://builtin.com/sites/default/files/styles/ckeditor_optimize/public/inline-images/two-tree-random-forest.png">
+<br>
+<br>
+<br>
+<p> Given the strong association between unhealthy ads and low-income communities, as well as demonstrated 
+    significant differences in unhealthy macronutrient content based on a binary split of communities  
+    SES, it is worth exploring if a prediction can be made at the advertisement-level if that particular 
+    ad was placed in in a low- or high- SES community. 
+        <p> A random forest model was built using python SciKit-learn. The target prediction was designated as a 
+            binary classification of greater than or less than 60% economically disadvantaged. Data was designated 
+            as values for kcal, fat, carbohydrate, sodium, and sugar for each ad (n=2268). Data were randomly split 
+            into training and testing subsets using the train_test_split SKL function. After training, 200 random 
+            estimators were selected and accurately predicted the binary classification 82.7% of the time. Weights 
+            of each estimator are reported: 
+        <p>kcal = 0.22 
+        <p>sodium = 0.22
+        <p>carb = 0.20
+        <p>fat = 0.19
+        <p>sugar = 0.17
+        
+
+    </div>
+
+
+<!-- Third Parallax Image with Portfolio Text -->
+<div class="bgimg-4 w3-display-container ">
+    <div class="w3-display-middle">
+        <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Discussion  
+    </div>
+</div>
+
+    <!-- Container (Analytics Section) -->
+    <div class="w3-content w3-container w3-padding-64" id="portfolio">
+
+        <h3 class="w3-center">The environment within one-half mile of schools is saturated with ads for foods that
+                contain more calories, fat, sugar, and sodium  than should be consumed in two weeks. Further, students who attend more
+                economically disadvantaged schools are exposed to more unhealthy food, both in the volume of
+                ads and representation of unhealthy foods. Place-based intervention strategies are needed to limit
+                exposure, particularly in lower-income communities.</h3>
+        <br>
+        <h3 class="w3-center">The machine learning random forest algorithm developed with the present data accurately predicted the placement of an ad 
+            based on SES of the surrounding community 82.7% of the time. This is concerning, to say the least. </h3>
+<br>
+            <h3 class="w3-center">Advertising agencies and marketing departments at corporations should be held accountable for how they target unhealthy 
+                advertisements to lower-income and predominantly minority communities. The unregulated industry actively profits on exploiting health
+                disparities.
+                </h3>
+        <br></div>
+
+        
+
+    <!-- Footer -->
+    <footer class="w3-center w3-black w3-padding-64">
+        <a href="#home" class="w3-button w3-light-grey">
+            <i class="fa fa-arrow-up w3-margin-right"></i>Back to the top</a>
+        <div class="w3-xlarge w3-section boxhead">
+            <a href="https://www.linkedin.com/in/jacob-e-thomas-atx/" target="_blank">
+                <i class="fa fa-linkedin w3-hover-opacity"></i>
+            </a>
+        </div>
+        <p>Developed by Jacob Thomas, MA</p>
+        <p>The University of Texas at Austin </p>
+        <p>2019</p>
+    </footer>  
+  
+
+</body>
+
+</html>
